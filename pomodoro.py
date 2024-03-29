@@ -3,7 +3,7 @@ from constants import *
 from customtkinter import *
 
 reps = 0
-
+timer = None
 
 def start_timer():
     global reps
@@ -14,30 +14,44 @@ def start_timer():
 
     
 
-    if not reps%8:
-        title_label.config(text="Short break time", fg=PINK)
+    if reps % 8 == 0:
+        title_label.config(text="Long break", fg=RED)
         count_down(long_break_sec)
         
-    elif not reps%2:
-        title_label.config(text="Long break time", fg=RED)
+    elif reps % 2 == 0:
+        title_label.config(text="Short break", fg=PINK)
         count_down(short_break_sec)
         
     else:
         title_label.config(text="Work:", fg=GREEN)
         count_down(work_sec)
+
+
+def reset():
+    global reps
+    title_label.config(text="Timer", fg=GREEN)
+    canvas.itemconfig(timer_text, text="00:00")
+    checkmark_label.config(text=" ")
+    window.after_cancel(timer)
+    reps = 0
+    
+
         
 
 
 # counting down in window
 
 def count_down(count):
+    global timer
     count_min = count//60
     count_sec = count%60
     canvas.itemconfig(timer_text, text=f"{count_min}:{count_sec:02d}")
     if count > 0:
-        window.after(1000, count_down, count -1)
+       timer = window.after(1000, count_down, count -1)
     else:
         start_timer()
+        if reps % 2 == 0:
+            checkmark_label.config(text=CHECK_MARK*(reps//2))
 
 
 window = Tk()
@@ -61,10 +75,10 @@ canvas.grid(column=1, row=1)
 start_button = CTkButton(window, text="Start", fg_color=START_COLOR, font=(FONT_NAME, 24, "bold"), command=start_timer)
 start_button.grid(column=0, row=2)
 
-reset_button = CTkButton(window, text="Reset", fg_color=RESET_COLOR, font=(FONT_NAME, 24, "bold"))
+reset_button = CTkButton(window, text="Reset", fg_color=RESET_COLOR, font=(FONT_NAME, 24, "bold"), command=reset)
 reset_button.grid(column=2, row=2)
 
-checkmark_label = Label(text=CHECK_MARK, fg = GREEN, bg= YELLOW, font=(FONT_NAME, 24, "bold"))
+checkmark_label = Label(fg = GREEN, bg= YELLOW, font=(FONT_NAME, 24, "bold"))
 checkmark_label.grid(column=1, row=3)
 
 
