@@ -1,0 +1,12 @@
+PINK = "#e2979c"
+RED = "#e7305b"
+GREEN = "#9bdeac"
+YELLOW = "#f7f5dd"
+START_COLOR = "#4e9435"
+RESET_COLOR = "#e99f93"
+FONT_NAME = "Courier"
+CHECK_MARK = "✔"
+WORK_MIN = 25
+SHORT_BREAK_MIN = 5
+LONG_BREAK_MIN = 20
+
