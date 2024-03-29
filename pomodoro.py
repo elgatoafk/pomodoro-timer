@@ -2,16 +2,42 @@ from tkinter import *
 from constants import *
 from customtkinter import *
 
+reps = 0
+
+
 def start_timer():
-    count_down(5)
+    global reps
+    work_sec = WORK_MIN *60
+    short_break_sec = SHORT_BREAK_MIN * 60
+    long_break_sec = LONG_BREAK_MIN * 60
+    reps+=1
+
+    
+
+    if not reps%8:
+        title_label.config(text="Short break time", fg=PINK)
+        count_down(long_break_sec)
+        
+    elif not reps%2:
+        title_label.config(text="Long break time", fg=RED)
+        count_down(short_break_sec)
+        
+    else:
+        title_label.config(text="Work:", fg=GREEN)
+        count_down(work_sec)
+        
 
 
 # counting down in window
 
 def count_down(count):
-    canvas.itemconfig(timer_text, text=count)
+    count_min = count//60
+    count_sec = count%60
+    canvas.itemconfig(timer_text, text=f"{count_min}:{count_sec:02d}")
     if count > 0:
         window.after(1000, count_down, count -1)
+    else:
+        start_timer()
 
 
 window = Tk()
