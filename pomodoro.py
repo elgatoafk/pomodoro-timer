@@ -57,7 +57,9 @@ def count_down(count):
 window = Tk()
 window.title("Pomodoro")
 window.config(padx=100, pady=50, bg=YELLOW)
-window.iconbitmap("images/tomat_icon.ico")
+img = PhotoImage(file=r'images\pomodoro_icon.png')
+window.iconphoto(False, img)
+
 
 # upper label
 title_label = Label(text="Timer", fg=GREEN, bg=YELLOW, font=(FONT_NAME, 35, "bold"))
