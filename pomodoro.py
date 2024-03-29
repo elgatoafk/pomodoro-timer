@@ -16,7 +16,8 @@ def count_down(count):
 
 window = Tk()
 window.title("Pomodoro")
-window.config(padx=100, pady=50, bg=YELLOW,)
+window.config(padx=100, pady=50, bg=YELLOW)
+window.iconbitmap("images/tomat_icon.ico")
 
 # upper label
 title_label = Label(text="Timer", fg=GREEN, bg=YELLOW, font=(FONT_NAME, 35, "bold"))
@@ -24,7 +25,7 @@ title_label.grid(column=1, row=0)
 
 # central part
 canvas = Canvas(width=200, height=224, bg=YELLOW, highlightthickness=0)
-tomato_img = PhotoImage(file="tomato.png")
+tomato_img = PhotoImage(file="images/tomato.png")
 canvas.create_image(100,112, image=tomato_img)
 timer_text = canvas.create_text(100, 130, text="00:00", fill="white", font=(FONT_NAME, 35, "bold"))
 canvas.grid(column=1, row=1)
